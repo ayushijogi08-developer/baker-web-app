@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color-scheme: light dark;
+
+  /* LIGHT THEME VARIABLES */
+  --bg-primary: #FAF7F2;
+  --bg-secondary: #F3EBE1;
+  --bg-card: #FFFFFF;
+  --bg-hover: #EFE4D6;
+
+  --text-primary: #2A1810;
+  --text-secondary: #5A473C;
+  --text-muted: #756255;
+
+  --accent-primary: #C86D27;
+  --accent-hover: #B25B1B;
+  --accent-light: #FDF4EB;
+
+  --border-color: #D8CCC0;
+  --shadow-color: rgba(42, 24, 16, 0.06);
+
+  --badge-bg: #F5E8DC;
+  --badge-text: #8C4718;
+
+  /* Badge / status pill system */
+  --badge-success-bg: #E6F6EE;
+  --badge-success-text: #0A7A40;
+  --badge-success-border: #B7E4CB;
+
+  --badge-warning-bg: #FFF4E0;
+  --badge-warning-text: #92400E;
+  --badge-warning-border: #F5D8A8;
+
+  --badge-danger-bg: #FEE2E2;
+  --badge-danger-text: #991B1B;
+  --badge-danger-border: #FECACA;
+
+  --badge-neutral-bg: #EEF0F3;
+  --badge-neutral-text: #4B5563;
+  --badge-neutral-border: #D1D5DB;
+
+  --badge-teal-bg: #E4F3F0;
+  --badge-teal-text: #0D7C6D;
+  --badge-teal-border: #BFE3DC;
+
+  --badge-amber-bg: #FEF3C7;
+  --badge-amber-text: #78350F;
+  --badge-amber-border: #FDE68A;
+
+  --table-header-text: #5A473C;
+
+  --nav-bg: rgba(250, 247, 242, 0.85);
+}
+
+.dark {
+  /* DARK THEME VARIABLES */
+  --bg-primary: #120B09;
+  --bg-secondary: #281C17;
+  --bg-card: #1D130F;
+  --bg-hover: #38261F;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #EBE0D8;
+  --text-muted: #CFBFB3;
+
+  --accent-primary: #E58E26;
+  --accent-hover: #F59E0B;
+  --accent-light: #2D2018;
+
+  --border-color: #5C4134;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+
+  --badge-bg: #2C1E17;
+  --badge-text: #F3AA53;
+
+  /* Badge / status pill system — dark mode */
+  --badge-success-bg: rgba(16, 185, 129, 0.14);
+  --badge-success-text: #34D399;
+  --badge-success-border: rgba(52, 211, 153, 0.30);
+
+  --badge-warning-bg: rgba(245, 158, 11, 0.14);
+  --badge-warning-text: #FCD34D;
+  --badge-warning-border: rgba(252, 211, 77, 0.30);
+
+  --badge-danger-bg: rgba(239, 68, 68, 0.14);
+  --badge-danger-text: #FCA5A5;
+  --badge-danger-border: rgba(252, 165, 165, 0.30);
+
+  --badge-neutral-bg: rgba(255, 255, 255, 0.06);
+  --badge-neutral-text: #9CA3AF;
+  --badge-neutral-border: rgba(255, 255, 255, 0.12);
+
+  --badge-teal-bg: rgba(20, 184, 166, 0.14);
+  --badge-teal-text: #2DD4BF;
+  --badge-teal-border: rgba(45, 212, 191, 0.30);
+
+  --badge-amber-bg: rgba(245, 158, 11, 0.14);
+  --badge-amber-text: #FCD34D;
+  --badge-amber-border: rgba(252, 211, 77, 0.30);
+
+  --table-header-text: #CFBFB3;
+
+  --nav-bg: rgba(20, 14, 12, 0.88);
+}
+
+body,
+header,
+nav,
+footer,
+.bg-theme-transition {
+  transition: background-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Global High-Contrast Form Controls Styling */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="time"],
+input[type="date"],
+input[type="search"],
+textarea,
+select {
+  border-radius: 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="time"],
+.dark input[type="date"],
+.dark input[type="search"],
+.dark textarea,
+.dark select {
+  background-color: #281C17 !important;
+  border: 1.5px solid #6E4E3E !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark input:hover,
+.dark textarea:hover,
+.dark select:hover {
+  border-color: #946C58 !important;
+  background-color: #30201A !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #E58E26 !important;
+  background-color: #34221C !important;
+  box-shadow: 0 0 0 3.5px rgba(229, 142, 38, 0.35) !important;
+  outline: none !important;
+}
+
+.dark select option {
+  background-color: #1D130F !important;
+  color: #FFFFFF !important;
+}
+
+/* Custom Typography Utility */
+.font-serif-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+

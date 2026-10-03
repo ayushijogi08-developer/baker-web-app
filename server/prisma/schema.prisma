@@ -1,0 +1,174 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  phone        String?
+  passwordHash String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  active      Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Product {
+  id              String         @id @default(uuid())
+  name            String
+  slug            String         @unique
+  categoryId      String
+  category        Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  description     String
+  price           Float
+  discountPrice   Float?
+  rating          Float?         @default(4.9)
+  reviewCount     Int?           @default(95)
+  ingredients     String
+  preparationTime String?
+  stockQuantity   Int            @default(10)
+  isOutOfStock    Boolean        @default(false)
+  stockStatus     String         @default("IN_STOCK")
+  isEggless       Boolean        @default(true)
+  featured        Boolean        @default(false)
+  active          Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  images          ProductImage[]
+  sizes           ProductSize[]
+  orderItems      OrderItem[]
+  reviews         Review[]
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model ProductSize {
+  id            String   @id @default(uuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  label         String
+  priceOverride Float?
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String   @unique
+  email     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  customerId      String
+  customer        Customer    @relation(fields: [customerId], references: [id])
+  subtotal        Float
+  deliveryFee     Float       @default(0)
+  discount        Float       @default(0)
+  total           Float
+  orderType       String      @default("DELIVERY")
+  deliveryAddress String?
+  scheduledDate   String?
+  scheduledTime   String?
+  paymentMethod   String      @default("upi_delivery")
+  paymentStatus   String      @default("PENDING")
+  orderStatus     String      @default("CONFIRMED")
+  razorpayOrderId String?
+  razorpayPaymentId String?
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id                  String   @id @default(uuid())
+  orderId             String
+  order               Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId           String?
+  product             Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productNameSnapshot String
+  sizeLabelSnapshot   String
+  unitPriceSnapshot   Float
+  quantity            Int
+  lineTotal           Float
+}
+
+model Coupon {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  type         String   @default("PERCENT")
+  value        Float
+  minimumOrder Float    @default(0)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model StoreSettings {
+  id                        String   @id @default("default")
+  storeName                 String   @default("The Hidden Bakers")
+  tagline                   String   @default("Artisanal Baking & Gourmet Confectionery in Akola")
+  address                   String   @default("Infront of LRT College, Necklace Road, New Radhakisan Plots, Akola, Maharashtra 444001")
+  phone                     String   @default("097650 13112")
+  whatsappNumber            String   @default("919765013112")
+  email                     String   @default("hello@thehiddenbakers.com")
+  openingHours              String   @default("Monday – Sunday: 9:00 AM - 10:00 PM")
+  openingTime               String   @default("09:00")
+  closingTime               String   @default("22:00")
+  isStoreOpenManualOverride Boolean?
+  storeClosedNotice         String   @default("Store is currently closed for delivery & orders. We open at 09:00 AM.")
+  deliveryFee               Float    @default(40)
+  freeDeliveryThreshold     Float    @default(500)
+  minOrderAmount            Float    @default(100)
+  maxDeliveryDistanceKm     Float    @default(30)
+  baseIncludedKm            Float    @default(5)
+  extraKmFee                Float    @default(10)
+  deliveryEnabled           Boolean  @default(true)
+  pickupEnabled             Boolean  @default(true)
+  zomatoUrl                 String?  @default("https://www.zomato.com/akola/the-hidden-bakers-new-radhakisan-plots")
+  swiggyUrl                 String?  @default("https://www.swiggy.com/city/akola/the-hidden-bakers-new-radhakisan-plots")
+  logoUrl                   String?
+  updatedAt                 DateTime @updatedAt
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  name       String
+  location   String?  @default("Akola")
+  rating     Int      @default(5)
+  comment    String
+  isVerified Boolean  @default(true)
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}

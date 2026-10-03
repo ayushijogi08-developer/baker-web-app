@@ -1,0 +1,14 @@
+{
+  "name": "the-hidden-bakers-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Hidden Bakers - Full-Stack Bakery Platform",
+  "scripts": {
+    "dev": "node start-dev.js",
+    "start": "node start-dev.js",
+    "client": "npm run dev --prefix client",
+    "server": "node server/server.js",
+    "build": "npm run build --prefix client",
+    "seed": "node server/prisma/seed.js"
+  }
+}
