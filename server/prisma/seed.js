@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 
@@ -4328,6 +4329,18 @@ const productsList = [
 
 async function main() {
   console.log("🌱 Seeding database...");
+
+  const adminPasswordHash = await bcrypt.hash("123456", 10);
+  await prisma.user.upsert({
+    where: { email: "admin@gmail.com" },
+    update: { passwordHash: adminPasswordHash, role: "ADMIN" },
+    create: {
+      name: "Admin User",
+      email: "admin@gmail.com",
+      passwordHash: adminPasswordHash,
+      role: "ADMIN"
+    }
+  });
   await prisma.storeSettings.upsert({
     where: { id: "default" },
     update: {},
