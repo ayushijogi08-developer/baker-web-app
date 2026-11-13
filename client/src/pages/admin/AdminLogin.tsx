@@ -6,8 +6,8 @@ import { useAuth } from "../../context/AuthContext";
 import { Button } from "../../components/ui/Button";
 
 export const AdminLogin: React.FC = () => {
-  const [email, setEmail] = useState("admin@thehiddenbakers.com");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -57,7 +57,7 @@ export const AdminLogin: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@thehiddenbakers.com"
+                placeholder="admin@gmail.com"
                 className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-primary)] font-medium"
               />
             </div>
@@ -74,7 +74,7 @@ export const AdminLogin: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="••••••"
                 className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-primary)] font-medium"
               />
             </div>
@@ -88,7 +88,7 @@ export const AdminLogin: React.FC = () => {
           )}
 
           <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-[11px] text-amber-900 dark:text-amber-200">
-            💡 Default Seed Admin: <b>admin@thehiddenbakers.com</b> / <b>admin123</b>
+            💡 Default Seed Admin: <b>admin@gmail.com</b> / <b>123456</b>
           </div>
 
           <Button type="submit" variant="primary" size="lg" className="w-full" disabled={loading}>

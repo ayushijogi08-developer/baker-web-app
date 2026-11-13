@@ -38,8 +38,8 @@ A modern, production-quality full-stack website and ordering platform for **The 
 
 To log into the Admin Dashboard at `http://localhost:5174/admin/login`:
 
-* **Email:** `admin@thehiddenbakers.com`
-* **Password:** `admin123`
+* **Email:** `admin@gmail.com`
+* **Password:** `123456`
 
 ---
 
